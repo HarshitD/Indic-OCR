@@ -50,9 +50,11 @@ public class OcrActivity extends Activity {
 
     private TessBaseAPI mTess;
     String datapath = "";
-
+    String OCRresult = null;
     Object language;
+    Object language2;
     String lang="ben";
+    char c=0x01;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +113,45 @@ public class OcrActivity extends Activity {
             }
         });
 
+        Spinner dropdown2 = findViewById(R.id.spinner2);
+        //create a list of items for the spinner.
+       // String[] items = new String[]{"Choose Language", "Bengali", "English", "Gujarati", "Hindi", "Kannada", "Tamil"};
+
+       // ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//set the spinners adapter to the previously created one.
+        dropdown2.setAdapter(adapter);
+
+        dropdown2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                language = parent.getItemAtPosition(pos);
+
+
+                //for deciding tessdata file
+                if(language.toString().equals("Bengali"))
+                    c=0x0080;
+                if(language.toString().equals("English"))
+                    c=0x8C4;
+                if(language.toString().equals("Gujarati"))
+                    c=0x180;
+                if(language.toString().equals("Hindi"))
+                    c=0x00;
+                if(language.toString().equals("Kannada"))
+                    c=0x380;
+                if(language.toString().equals("Tamil"))
+                    c=0x280;
+
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     public void processImage(View view){
-        String OCRresult = null;
+
         mTess.setImage(image);
         OCRresult = mTess.getUTF8Text();
+
         EditText OCRTextView = (EditText)findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
     }
@@ -164,4 +199,46 @@ public class OcrActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+    public void Transliteration(View view){
+
+
+
+
+
+        //Transliteration starts here
+        //get the spinner from the xml.
+
+
+
+
+        setContentView(R.layout.transliteration);
+        String Transresult = null;
+        String s;
+        Transresult = new StringBuilder(OCRresult).reverse().toString();
+        String str=null;
+        char[] charArray = OCRresult.toCharArray();
+        char ll='k';
+
+        for(int i=0;i<charArray.length;i++)
+        {
+            if(charArray[i]==' ') {
+                str = str+' ';
+
+            }        else
+            {
+                char l;
+                l = (char)((int) charArray[i] + c);
+                //String s1= Character.toString(l);
+                str = str + l;
+            }
+        }
+        //        char ch = OCRresult.charAt(4);
+        //String hex = String.format("%04x", (int) charArray[4] + 0x380) ;
+        TextView TransView = (TextView) findViewById(R.id.TransView);
+
+
+        TransView.setText("Trans " + str);
+    }
+
 }

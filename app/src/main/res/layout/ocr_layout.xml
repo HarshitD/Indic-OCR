@@ -11,13 +11,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="332dp"
+        android:layout_height="250dp"
         android:background="#ffffff"
         android:id="@+id/ImageContainer">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:id="@+id/imageView"
             android:src="@drawable/test_image"/>
 
@@ -30,7 +30,7 @@
             android:layout_alignParentStart="true"
             android:text="You selected"
             android:textColor="#a3a3a3"
-            android:textSize="20dp" />
+            android:textSize="15dp" />
 
     </RelativeLayout>
 
@@ -75,7 +75,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:background="#e4e3e3"
         android:id="@+id/OCRTextContainer">
 
@@ -84,10 +84,53 @@
             android:layout_height="wrap_content"
             android:text="OCR Text will appear here"
             android:id="@+id/OCRTextView"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:background="#dedede"
             android:textColor="#a3a3a3" />
+
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentStart="true"
+
+
+        android:background="#167865"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/OCRButtonContainer2">
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_weight="1"
+
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            android:text="Choose" />
+
+        <Button
+            android:id="@+id/trans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="Transliteration"
+            android:text="Transliterate"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+
 </LinearLayout>
